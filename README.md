@@ -7,7 +7,7 @@ Find a tabletop RPG group near you
 - gem rails (we are using version 6.1.3)
 - gem bundler
 
-I recommend following LeWagon's setup [https://github.com/lewagon/setup](https://github.com/lewagon/setup) to get your environment ready, but you'll probably have to install the required ruby version with rbenv
+I recommend following [LeWagon's setup](https://github.com/lewagon/setup) to get your environment ready, but you'll probably have to install the required ruby version with rbenv
 
 ### Set up
 

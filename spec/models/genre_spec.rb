@@ -3,9 +3,8 @@ require 'rails_helper'
 RSpec.describe Genre, type: :model do
   subject { build(:genre) }
 
-  it 'has a valid description length' do
-    subject.description = 'Test description'
-    expect(subject.description.length).to be_between(10, 500)
+  it 'has a valid factory' do
+    expect(subject).to be_valid
   end
 
   context 'not valid' do
@@ -16,6 +15,11 @@ RSpec.describe Genre, type: :model do
 
     it 'without a description' do
       subject.description = nil
+      expect(subject).not_to be_valid
+    end
+
+    it 'description too short' do
+      subject.description = 'test'
       expect(subject).not_to be_valid
     end
   end

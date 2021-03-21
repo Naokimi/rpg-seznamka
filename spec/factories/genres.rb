@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :genre do
     name { "MyString" }
-    description { "MyText" }
+    description { "MyTextDescription" }
   end
 end

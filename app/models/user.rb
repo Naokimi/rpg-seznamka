@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :preferences
+
   # add validations and rspec
   validates :nickname, presence: true, uniqueness: true
 end

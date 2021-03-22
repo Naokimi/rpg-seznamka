@@ -1,5 +1,5 @@
 class Genre < ApplicationRecord
-  # has_many :preferences
+  has_many :preferences
   has_many :rulebooks
 
   validates :name, presence: true

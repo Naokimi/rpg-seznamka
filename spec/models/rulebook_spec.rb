@@ -22,6 +22,12 @@ RSpec.describe Rulebook, type: :model do
       subject.description = 'test'
       expect(subject).not_to be_valid
     end
+
+    it 'duplicated' do
+      rulebook = create(:rulebook)
+      subject.name = rulebook.name
+      expect(subject).not_to be_valid
+    end
   end
 
   context 'relations' do

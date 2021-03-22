@@ -19,6 +19,13 @@ RSpec.describe Preference, type: :model do
       subject.genre = nil
       expect(subject).not_to be_valid
     end
+
+    it 'duplicated' do
+      preference = create(:preference)
+      subject.user_id = preference.user_id
+      subject.genre_id = preference.genre_id
+      expect(subject).not_to be_valid
+    end
   end
 
   context 'relations' do

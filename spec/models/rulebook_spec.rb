@@ -18,6 +18,11 @@ RSpec.describe Rulebook, type: :model do
       expect(subject).not_to be_valid
     end
 
+    it 'without an image' do
+      subject.img_url = nil
+      expect(subject).not_to be_valid
+    end
+
     it 'description too short' do
       subject.description = 'test'
       expect(subject).not_to be_valid

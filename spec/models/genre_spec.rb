@@ -13,6 +13,11 @@ RSpec.describe Genre, type: :model do
       expect(subject).not_to be_valid
     end
 
+    it 'with duplicated name' do
+      create(:genre)
+      expect(subject).not_to be_valid
+    end
+
     it 'without a description' do
       subject.description = nil
       expect(subject).not_to be_valid

@@ -9,6 +9,7 @@ class User < ApplicationRecord
   # add validations and rspec
   validates :nickname, presence: true, uniqueness: true
 
-  has_many :joined_groups, class_name: 'PlayerGroup', foreign_key: :joined_id
-  has_many :owned_groups, class_name: 'Group', as: :gm, foreign_key: :owned_id
+  has_many :player_groups
+  has_many :groups, through: :player_groups
+  has_many :owned_groups, class_name: 'Group', as: :gm
 end

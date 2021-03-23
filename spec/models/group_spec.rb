@@ -41,6 +41,5 @@ RSpec.describe Group, type: :model do
         expect(group.gm).to equal(user)
       end
     end
-
   end
 end

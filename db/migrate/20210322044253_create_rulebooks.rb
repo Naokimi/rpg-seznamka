@@ -4,6 +4,7 @@ class CreateRulebooks < ActiveRecord::Migration[6.1]
       t.string :name
       t.text :description
       t.references :genre, null: false, foreign_key: true
+      t.string :img_url
 
       t.timestamps
     end

@@ -51,6 +51,16 @@ ActiveRecord::Schema.define(version: 2021_03_22_143946) do
     t.index ["user_id"], name: "index_preferences_on_user_id"
   end
 
+  create_table "rulebooks", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "genre_id", null: false
+    t.string "img_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["genre_id"], name: "index_rulebooks_on_genre_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -71,4 +81,5 @@ ActiveRecord::Schema.define(version: 2021_03_22_143946) do
   add_foreign_key "player_groups", "users"
   add_foreign_key "preferences", "genres"
   add_foreign_key "preferences", "users"
+  add_foreign_key "rulebooks", "genres"
 end

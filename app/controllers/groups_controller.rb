@@ -8,7 +8,8 @@ class GroupsController < ApplicationController
     @markers = @groups.geocoded.map do |group|
       {
         lat: group.latitude,
-        lng: group.longitude
+        lng: group.longitude,
+        infoWindow: render_to_string(partial: "info_window", locals: { group: group })
       }
     end
   end

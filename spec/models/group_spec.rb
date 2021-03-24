@@ -37,17 +37,18 @@ RSpec.describe Group, type: :model do
       let(:game_master) { create(:user) }
       let(:user1) { create(:user) }
       let(:user2) { create(:user) }
-      let(:group) { create(:group, gm: game_master) }
-      let(:playergroup) { create(:player_group, group: group, user: user1) }
 
       it "returns a group's gm" do
-        group.gm = game_master
-        expect(group.gm).to equal(game_master)
+        subject.gm = game_master
+        expect(subject.gm).to equal(game_master)
       end
 
       it "returns a group's users" do
-        puts group.users
-        # expect(group.users).to include(user1)
+        playergroup1 = create(:player_group, group: subject, user: user1)
+        playergroup2 = create(:player_group, group: subject, user: user2)
+        expect(subject.users).to include(user1)
+        expect(subject.users).to include(user2)
+        expect(subject.users.length).to equal(2)
       end
     end
   end

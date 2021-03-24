@@ -9,7 +9,8 @@ class GroupsController < ApplicationController
       {
         lat: group.latitude,
         lng: group.longitude,
-        infoWindow: render_to_string(partial: "info_window", locals: { group: group })
+        infoWindow: render_to_string(partial: "info_window", locals: { group: group }),
+        image_url: helpers.asset_url('REPLACE_THIS_WITH_YOUR_IMAGE_IN_ASSETS')
       }
     end
   end

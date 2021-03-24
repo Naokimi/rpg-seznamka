@@ -5,6 +5,7 @@ class GroupsController < ApplicationController
     @groups = Group.all
 
     # the `geocoded` scope filters only groups with coordinates (latitude & longitude)
+    # TODO talk about updating the groups table with
     # @markers = @groups.geocoded.map do |group|
     #   {
     #     lat: group.latitude,

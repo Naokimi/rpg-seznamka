@@ -5,10 +5,10 @@ class GroupsController < ApplicationController
     @groups = Group.all
 
     # the `geocoded` scope filters only groups with coordinates (latitude & longitude)
-    @markers = @groups.geocoded.map do |flat|
+    @markers = @groups.geocoded.map do |group|
       {
-        lat: flat.latitude,
-        lng: flat.longitude
+        lat: group.latitude,
+        lng: group.longitude
       }
     end
   end

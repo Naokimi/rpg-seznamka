@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_044253) do
+ActiveRecord::Schema.define(version: 2021_03_22_143946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,26 @@ ActiveRecord::Schema.define(version: 2021_03_22_044253) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "city"
+    t.jsonb "session_times"
+    t.bigint "gm_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gm_id"], name: "index_groups_on_gm_id"
+  end
+
+  create_table "player_groups", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_player_groups_on_group_id"
+    t.index ["user_id"], name: "index_player_groups_on_user_id"
   end
 
   create_table "preferences", force: :cascade do |t|
@@ -56,6 +76,9 @@ ActiveRecord::Schema.define(version: 2021_03_22_044253) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "groups", "users", column: "gm_id"
+  add_foreign_key "player_groups", "groups"
+  add_foreign_key "player_groups", "users"
   add_foreign_key "preferences", "genres"
   add_foreign_key "preferences", "users"
   add_foreign_key "rulebooks", "genres"

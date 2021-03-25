@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
-  skip_before_action :authenticate_user!
+skip_before_action :authenticate_user!
 
-  def index
+def index
     @groups = Group.all
 
     # the `geocoded` scope filters only groups with coordinates (latitude & longitude)

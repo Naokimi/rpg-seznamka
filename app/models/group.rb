@@ -4,6 +4,6 @@ class Group < ApplicationRecord
   has_many :users, through: :player_groups
 
   validates :name, presence: true, uniqueness: true
-  validates :city, presence: true
+  validates :address, presence: true
   validates :description, presence: true, length: { in: 10..500, message: 'Must be between 10 and 500 characters.' }
 end

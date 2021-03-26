@@ -1,3 +1,4 @@
+require_relative 'data/custom_data.rb'
 require 'database_cleaner/active_record'
 require 'faker'
 
@@ -11,55 +12,56 @@ gandalf = User.create!(
   email: 'gandalf@gmail.com',
   nickname: 'GandalfTheWhite',
   password: '123456',
-  city: 'Tokyo'
+  city: "#{WARDS.sample}-ku, Tokyo"
   )
-puts "#{gandalf.nickname} Summoned: 'You Shall Not Pass! 🧖🏼‍♂️'"
+puts "#{gandalf.nickname} Summoned: 'You Shall Not Pass!' 🧖🏼‍♂️"
 
 puts "Generating NPCs..."
 40.times do
-  user = User.new
-  user.email = Faker::Internet.email
-  user.nickname = Faker::Internet.username
-  user.password = '123456'
-  user.city = Faker::Address.city
-  user.save
-  puts "#{user.nickname} from #{user.city} created"
+  i = 0
+  user = User.create(
+    email: Faker::Internet.email,
+    nickname: Faker::Internet.username,
+    password: '123456',
+    city: "#{i += 1}. #{WARDS.sample}-ku, Tokyo"
+    )
+  puts "#{user.nickname} - #{user.city} created"
 end
 puts "All NPCs Generated"
 
 puts "Generating Groups..."
 20.times do
-  group = Group.new
-  group.name = Faker::App.name
-  group.description = Faker::Company.bs
-  group.city = Faker::Address.city
-  group.gm = User.randuser
-  group.save
-  puts "#{group.name} created"
+  i = 0
+  group = Group.create(
+    name: Faker::App.name,
+    description: Faker::Company.bs,
+    city: "#{WARDS.sample}-ku, Tokyo",
+    gm: User.all.sample
+    )
+  puts "#{i += 1}. #{group.name} created"
 end
 puts "All Groups Created"
 
 puts "Linking Users to Groups..."
 30.times do
-  user = randUser
-  group = randGroup
-  group = randGroup if group.gm == user
-  p_group = PlayerGroup.new
-  p_group.user = user
-  p_group.group = group
-  p_group.save
+  user = User.all.sample
+  group = Group.all.sample
+  group = Group.all.sample if group.gm == user
+  group = Group.all.sample if group.users.count == 5
+  p_group = PlayerGroup.create(
+    user: user,
+    group: group
+    )
 end
 puts "We have Player Groups 🕺"
 
-
-# See why this doesnt work...
-private
-
-def randUser
-  User.all.sample
+puts "Generating Genres..."
+RPG_GENRES.each_key do |genre|
+  i = 0
+  rpg = Genre.create(
+    name: RPG_GENRES[genre][:title],
+    description: RPG_GENRES[genre][:description]
+    )
+  puts "#{i += 1}. #{rpg.name} created"
 end
-
-def randGroup
-  Group.all.sample
-end
-
+puts "Genres Created 🔠"

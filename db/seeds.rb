@@ -1,22 +1,19 @@
+require 'database_cleaner/active_record'
 require 'faker'
 
 puts "Clearing out the battlefield 🌋..."
-User.destroy_all
-PlayerGroup.destroy_all
-Group.destroy_all
-Preference.destroy_all
-Rulebook.destroy_all
-Genre.destroy_all
+DatabaseCleaner.strategy = :truncation
+DatabaseCleaner.clean
 puts "Battlefield Cleared ⛰"
 
 puts "Summoning Gandalf 🧙🏻‍♂️"
-gandalf = User.new
-gandalf.email = 'gandalf@gmail.com'
-gandalf.nickname = 'GandalfTheWhite'
-gandalf.password = '123456'
-gandalf.city = 'Tokyo'
-gandalf.save
-puts "Gandalf Summoned: 'You Shall Not Pass! 🧖🏼‍♂️'"
+gandalf = User.create!(
+  email: 'gandalf@gmail.com',
+  nickname: 'GandalfTheWhite',
+  password: '123456',
+  city: 'Tokyo'
+  )
+puts "#{gandalf.nickname} Summoned: 'You Shall Not Pass! 🧖🏼‍♂️'"
 
 puts "Generating NPCs..."
 40.times do
@@ -31,12 +28,12 @@ end
 puts "All NPCs Generated"
 
 puts "Generating Groups..."
-50.times do
+20.times do
   group = Group.new
   group.name = Faker::App.name
   group.description = Faker::Company.bs
   group.city = Faker::Address.city
-  group.gm = User.all.shuffle.first
+  group.gm = User.randuser
   group.save
   puts "#{group.name} created"
 end
@@ -44,9 +41,25 @@ puts "All Groups Created"
 
 puts "Linking Users to Groups..."
 30.times do
+  user = randUser
+  group = randGroup
+  group = randGroup if group.gm == user
   p_group = PlayerGroup.new
-  p_group.user = User.all.shuffle.first
-  p_group.group = Group.all.shuffle.first
+  p_group.user = user
+  p_group.group = group
   p_group.save
 end
 puts "We have Player Groups 🕺"
+
+
+# See why this doesnt work...
+private
+
+def randUser
+  User.all.sample
+end
+
+def randGroup
+  Group.all.sample
+end
+

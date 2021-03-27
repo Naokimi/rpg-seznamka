@@ -30,6 +30,13 @@ end
 puts "All NPCs Generated"
 
 puts "Generating Groups..."
+Group.create(
+  name: Faker::App.name,
+  description: Faker::Company.bs,
+  city: "#{WARDS.sample}-ku, Tokyo",
+  gm: gandalf
+  )
+
 20.times do
   i = 0
   group = Group.create(
@@ -43,6 +50,15 @@ end
 puts "All Groups Created"
 
 puts "Linking Users to Groups..."
+3.times do
+    group = Group.all.sample
+    group = Group.all.sample if group.gm == gandalf
+    PlayerGroup.create(
+      user: gandalf,
+      group: group
+    )
+end
+
 30.times do
   user = User.all.sample
   group = Group.all.sample
@@ -65,3 +81,27 @@ RPG_GENRES.each_key do |genre|
   puts "#{i += 1}. #{rpg.name} created"
 end
 puts "Genres Created 🔠"
+
+puts "Deciding what Users prefer..."
+
+Preference.create(
+  user: gandalf,
+  genre: Genre.all.sample
+  )
+
+50.times do
+  Preference.create(
+    user: User.all.sample,
+    genre: Genre.all.sample
+    )
+end
+puts "They decided"
+
+# create_table "preferences", force: :cascade do |t|
+#   t.bigint "user_id", null: false
+#   t.bigint "genre_id", null: false
+#   t.datetime "created_at", precision: 6, null: false
+#   t.datetime "updated_at", precision: 6, null: false
+#   t.index ["genre_id"], name: "index_preferences_on_genre_id"
+#   t.index ["user_id"], name: "index_preferences_on_user_id"
+# end

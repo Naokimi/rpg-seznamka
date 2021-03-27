@@ -1,4 +1,7 @@
-require_relative 'data/custom_data.rb'
+require_relative 'data/genres_data.rb'
+require_relative 'data/prefectures_data.rb'
+require_relative 'data/rulebooks_data.rb'
+
 require 'database_cleaner/active_record'
 require 'faker'
 
@@ -96,12 +99,3 @@ Preference.create(
     )
 end
 puts "They decided"
-
-# create_table "preferences", force: :cascade do |t|
-#   t.bigint "user_id", null: false
-#   t.bigint "genre_id", null: false
-#   t.datetime "created_at", precision: 6, null: false
-#   t.datetime "updated_at", precision: 6, null: false
-#   t.index ["genre_id"], name: "index_preferences_on_genre_id"
-#   t.index ["user_id"], name: "index_preferences_on_user_id"
-# end

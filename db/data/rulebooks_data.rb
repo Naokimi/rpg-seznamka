@@ -3,7 +3,9 @@ BOOK_TITLES = [
   {
     id: 1,
     title: 'Forbidden Lands',
-    genre: 'Fantasy'
+    genre: 'Fantasy',
+    description: 'Forbidden Lands is a new take on classic fantasy roleplaying. In this open-world survival roleplaying game, you’re not heroes sent on missions dictated by others - instead, you are raiders and rogues bent on making your own mark on a cursed world. You will discover lost tombs, fight terrible monsters, wander the wild lands and, if you live long enough, build your own stronghold to defend.',
+    img: 'https://cf.geekdo-images.com/P06DhyCM06WWyCuiT2b06g__imagepage/img/4vuUPould9Jqg8ZPYowCWcG4Spo=/fit-in/900x600/filters:no_upscale():strip_icc()/pic4104378.png'
   },
   {
     id: 2,

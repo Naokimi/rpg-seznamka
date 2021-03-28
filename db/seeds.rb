@@ -44,12 +44,14 @@ puts "All NPCs Generated"
 
 puts "Generating Groups..."
 
-Group.create(
-  name: Faker::App.name,
-  description: Faker::Company.bs,
-  city: "Shibuya-ku, Tokyo",
-  gm: gandalf
-  )
+2.times do
+  Group.create(
+    name: Faker::App.name,
+    description: Faker::Company.bs,
+    city: "Shibuya-ku, Tokyo",
+    gm: gandalf
+    )
+end
 
 20.times do
   i = 0
@@ -76,15 +78,9 @@ puts "All Groups Created"
 
 puts "Linking Users to Groups..."
 
-3.times do
-    groups = Group.where(city: 'Shinjuku-ku, Tokyo')
-    #Need to work on this
-    group = Group.all.sample
-    group = Group.all.sample if group.gm == gandalf
-    PlayerGroup.create(
-      user: gandalf,
-      group: group
-    )
+groups = Group.where(city: 'Shibuya-ku, Tokyo')
+groups.each do |group|
+  PlayerGroup.create(user: gandalf, group: group) if group.gm != gandalf
 end
 
 30.times do

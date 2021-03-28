@@ -6,7 +6,6 @@ class User < ApplicationRecord
 
   has_many :preferences
 
-  # add validations and rspec
   validates :nickname, presence: true, uniqueness: true
 
   has_many :player_groups

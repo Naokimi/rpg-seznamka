@@ -84,14 +84,18 @@ groups.each do |group|
 end
 
 30.times do
-  user = User.all.sample
-  group = Group.all.sample
-  group = Group.all.sample if group.gm == user
-  group = Group.all.sample if group.users.count == 5
-  p_group = PlayerGroup.create(
-    user: user,
-    group: group
-    )
+  status = true
+  while status
+    user = User.all.sample
+    group = Group.all.sample
+    if group.gm != user && !group.users.include?(user) && group.users.count < 5
+      p_group = PlayerGroup.create(
+      user: user,
+      group: group
+      )
+      status = false
+    end
+  end
 end
 
 puts "We have Player Groups 🕺"

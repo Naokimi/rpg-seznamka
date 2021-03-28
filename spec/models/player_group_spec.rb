@@ -21,9 +21,9 @@ RSpec.describe PlayerGroup, type: :model do
     end
 
     it 'duplicated' do
-      preference = create(:preference)
-      subject.user_id = preference.user_id
-      subject.group_id = preference.group_id
+      player_group = create(:player_group)
+      subject.user_id = player_group.user_id
+      subject.group_id = player_group.group_id
       expect(subject).not_to be_valid
     end
   end

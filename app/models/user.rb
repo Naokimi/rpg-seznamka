@@ -8,8 +8,6 @@ class User < ApplicationRecord
 
   # add validations and rspec
   validates :nickname, presence: true, uniqueness: true
-  validates :first_name, presence: true
-  validates :last_name, presence: true
 
   has_many :player_groups
   has_many :groups, through: :player_groups

@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   resources :users, only: %i[show edit update]
+  resources :groups, only: [:index]
+
 end

@@ -32,13 +32,21 @@ puts "Generating NPCs..."
             "#{prefecture[:city].sample}-shi"
          end
 
-  user = User.create(
-    email: Faker::Internet.email,
-    nickname: Faker::Internet.username,
-    password: '123456',
-    city: "#{city}, #{prefecture[:prefecture]}"
-    )
-  puts "#{user_num += 1}. #{user.nickname} - #{user.city} created"
+  status = true
+
+  while status
+    nickname = Faker::Internet.username
+    if !User.find_by(nickname: nickname)
+      user = User.create!(
+        email: Faker::Internet.email,
+        nickname: nickname,
+        password: '123456',
+        city: "#{city}, #{prefecture[:prefecture]}"
+        )
+      puts "#{user_num += 1}. #{user.nickname} - #{user.city} created"
+      status = false
+    end
+  end
 end
 
 puts "All NPCs Generated"
@@ -47,7 +55,7 @@ puts "Generating Groups..."
 group_num = 0
 
 2.times do
-  group = Group.create(
+  group = Group.create!(
     name: Faker::App.name,
     description: Faker::Company.bs,
     city: "Shibuya-ku, Tokyo",
@@ -67,13 +75,21 @@ end
             "#{prefecture[:city].sample}-shi"
          end
 
-  group = Group.create(
-    name: Faker::App.name,
-    description: Faker::Company.bs,
-    city: "#{city}, Tokyo",
-    gm: User.all.sample
-    )
-  puts "#{group_num += 1}. #{group.name} created"
+  status = true
+
+  while status
+    name = Faker::App.name
+    if !Group.find_by(name: name)
+      group = Group.create!(
+        name: name,
+        description: Faker::Company.bs,
+        city: "#{city}, #{prefecture[:prefecture]}",
+        gm: User.all.sample
+        )
+      status = false
+      puts "#{group_num += 1}. #{group.name} created"
+    end
+  end
 end
 
 puts "All Groups Created"
@@ -82,7 +98,7 @@ puts "Linking Users to Groups..."
 
 groups = Group.where(city: 'Shibuya-ku, Tokyo')
 groups.each do |group|
-  PlayerGroup.create(user: gandalf, group: group) if group.gm != gandalf
+  PlayerGroup.create!(user: gandalf, group: group) if group.gm != gandalf
 end
 
 30.times do
@@ -91,7 +107,7 @@ end
     user = User.all.sample
     group = Group.all.sample
     if group.gm != user && !group.users.include?(user) && group.users.count < 5
-      p_group = PlayerGroup.create(
+      p_group = PlayerGroup.create!(
       user: user,
       group: group
       )
@@ -106,7 +122,7 @@ puts "Generating Genres..."
 
 RPG_GENRES.each_with_index do |genre, index|
 
-  rpg = Genre.create(
+  rpg = Genre.create!(
     name: genre[:name],
     description: genre[:description]
     )
@@ -118,24 +134,33 @@ puts "Genres Created 🔠"
 
 puts "Deciding what Users prefer..."
 
-Preference.create(
+gandalfs_preference = Genre.all.sample
+Preference.create!(
   user: gandalf,
-  genre: Genre.all.sample
+  genre: gandalfs_preference
   )
 
-50.times do
-  Preference.create(
-    user: User.all.sample,
-    genre: Genre.all.sample
-    )
+User.all.each do |user|
+  status = true
+  while status
+    genre = Genre.all.sample
+    if !user.preferences.include?(genre)
+      Preference.create!(
+        user: user,
+        genre: genre
+        )
+      status = false
+    end
+  end
 end
 
 puts "They decided"
 
 puts "Create the Rulebooks..."
+
 BOOK_TITLES.each_with_index do |book, index|
-  genre = Genre.where(name: book[:genre]).first
-  rulebook = Rulebook.create(
+  genre = Genre.find_by(name: book[:genre])
+  rulebook = Rulebook.create!(
     name: book[:title],
     description: book[:description],
     genre: genre,
@@ -143,4 +168,5 @@ BOOK_TITLES.each_with_index do |book, index|
     )
   puts "#{index + 1}. #{rulebook.name} published"
 end
+
 puts "All Rulesbooks created"

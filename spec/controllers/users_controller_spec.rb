@@ -16,7 +16,7 @@ RSpec.describe UsersController, type: :controller do
     it 'renders all users' do
       get :index
       expect(response).to be_successful
-      expect(controller.instance_variable_get(:@users).size).to eq(2)
+      expect(controller.instance_variable_get(:@users).size).to eq(3)
     end
 
     it 'renders filtered users' do

@@ -13,7 +13,7 @@ RSpec.describe UserPolicy do
 
   context 'other' do
     let(:user) { build(:user) }
-    it { should_not permit(:show) }
+    it { should permit(:show) }
     it { should_not permit(:edit) }
     it { should_not permit(:update) }
   end

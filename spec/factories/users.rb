@@ -7,8 +7,8 @@ FactoryBot.define do
 
   trait :with_preference do
     after(:create) do |user|
-      genre = create(:genre)
-      user.genres << genre
+      preference = create(:preference)
+      user.preferences << preference
     end
   end
 end

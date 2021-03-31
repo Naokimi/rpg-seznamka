@@ -20,7 +20,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it 'renders filtered users' do
-      get :show, params: { genre_ids: Genre.all.pluck(:id) }
+      get :index, params: { genre_ids: Genre.all.pluck(:id) }
       expect(response).to be_successful
       expect(controller.instance_variable_get(:@users).size).to eq(1)
     end

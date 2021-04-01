@@ -1,5 +1,6 @@
 class Rulebook < ApplicationRecord
-  belongs_to :genre
+  has_many :pairings
+  has_many :genres, through: :pairings
   # has_many :groups # TODO: implement group > rulebook relation
 
   validates :name, presence: true, uniqueness: true

@@ -59,10 +59,31 @@ RSpec.describe Rulebook, type: :model do
 
   context 'relations' do
     let(:genre) { create(:genre) }
-    let(:rulebook) { create(:rulebook, genre: genre) }
+    let(:genre2) { create(:genre, name: "genre") }
+    let(:pairing) { create(:pairing, genre: genre, rulebook: subject) }
+    let(:pairing2) { create(:pairing, genre: genre2, rulebook: subject) }
 
-    it "returns a rulebooks's genre" do
-      expect(rulebook.genre).to equal(genre)
+    it "returns a rulebooks's pairings" do
+      expect(subject.pairings).to include(pairing)
+      expect(subject.pairings).to include(pairing2)
+      expect(subject.pairings.count).to eq(2)
     end
+
+    it "returns a rulebook's genres" do
+      subject.genres << genre
+      subject.genres << genre2
+      expect(subject.genres).to include(genre)
+      expect(subject.genres).to include(genre2)
+      expect(subject.genres.size).to eq(2)
+    end
+
+    # TODO: uncomment after adding rulebook_id to group
+    # it "returns a rulebook's groups" do
+      # group1 = create(:group, rulebook: rulebook)
+      # group2 = create(:group, rulebook: rulebook)
+      # expect(rulebook.groups).to include(group1)
+      # expect(rulebook.groups).to include(group2)
+      # expect(rulebook.groups.length).to equal(2)
+    # end
   end
 end

@@ -1,6 +1,7 @@
 class Rulebook < ApplicationRecord
-  belongs_to :genre
-  # has_many :groups
+  has_many :pairings
+  has_many :genres, through: :pairings
+  # has_many :groups # TODO: implement group > rulebook relation
 
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true, length: { in: 10..3000, message: 'Must be between 10 and 3000 characters.' }

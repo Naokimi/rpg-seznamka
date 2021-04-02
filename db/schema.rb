@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_143946) do
+ActiveRecord::Schema.define(version: 2021_03_30_120426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,18 @@ ActiveRecord::Schema.define(version: 2021_03_22_143946) do
     t.bigint "gm_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "latitude"
+    t.float "longitude"
     t.index ["gm_id"], name: "index_groups_on_gm_id"
+  end
+
+  create_table "pairings", force: :cascade do |t|
+    t.bigint "genre_id", null: false
+    t.bigint "rulebook_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["genre_id"], name: "index_pairings_on_genre_id"
+    t.index ["rulebook_id"], name: "index_pairings_on_rulebook_id"
   end
 
   create_table "player_groups", force: :cascade do |t|
@@ -54,11 +65,9 @@ ActiveRecord::Schema.define(version: 2021_03_22_143946) do
   create_table "rulebooks", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.bigint "genre_id", null: false
     t.string "img_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["genre_id"], name: "index_rulebooks_on_genre_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -72,14 +81,17 @@ ActiveRecord::Schema.define(version: 2021_03_22_143946) do
     t.string "nickname"
     t.jsonb "availability"
     t.string "city"
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "groups", "users", column: "gm_id"
+  add_foreign_key "pairings", "genres"
+  add_foreign_key "pairings", "rulebooks"
   add_foreign_key "player_groups", "groups"
   add_foreign_key "player_groups", "users"
   add_foreign_key "preferences", "genres"
   add_foreign_key "preferences", "users"
-  add_foreign_key "rulebooks", "genres"
 end

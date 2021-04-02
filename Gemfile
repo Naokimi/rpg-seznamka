@@ -67,3 +67,6 @@ gem 'database_cleaner-active_record'
 
 # views
 gem 'slim-rails'
+
+# Geocoding
+gem 'geocoder'

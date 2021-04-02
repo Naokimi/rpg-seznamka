@@ -36,7 +36,7 @@ class GroupsController < ApplicationController
     group.gm = @user
     authorize group
     if group.save
-      redirect_to group_path(@group)
+      redirect_to group_path(group)
     else
       render :new
     end
@@ -45,7 +45,7 @@ class GroupsController < ApplicationController
   def edit; end
 
   def update
-    if group.update(group_params)
+    if @group.update(group_params)
       redirect_to group_path(@group)
     else
       render :edit

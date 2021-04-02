@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe GroupPolicy do
-    let(:user)  { build(:user) }
-    let(:group) { build(:group, gm: user) }
-    subject { GroupPolicy.new(logged_user, group) }
+  let(:user)  { build(:user) }
+  let(:group) { build(:group, gm: user) }
+  subject { GroupPolicy.new(logged_user, group) }
 
   context 'self' do
     let(:logged_user) { user }

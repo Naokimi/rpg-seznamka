@@ -8,6 +8,24 @@ RSpec.describe UsersController, type: :controller do
     sign_in user
   end
 
+  describe '#index' do
+    before do
+      create(:user, :with_preference)
+    end
+
+    it 'renders all users' do
+      get :index
+      expect(response).to be_successful
+      expect(controller.instance_variable_get(:@users).size).to eq(3)
+    end
+
+    it 'renders filtered users' do
+      get :index, params: { genre_ids: Genre.all.pluck(:id) }
+      expect(response).to be_successful
+      expect(controller.instance_variable_get(:@users).size).to eq(1)
+    end
+  end
+
   describe '#show' do
     it 'renders a show page' do
       get :show, params: { id: user.id }

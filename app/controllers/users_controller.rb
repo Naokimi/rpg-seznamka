@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_user!, only: :show
-  before_action :set_user
+  before_action :set_user, only: %i[show edit update]
+
+  def index
+    users = policy_scope(User)
+    @users = params[:genre_ids] ? users.includes(:preferences).where(preferences: { genre_id: params[:genre_ids] }) : users
+  end
 
   def show; end
 

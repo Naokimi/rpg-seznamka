@@ -17,4 +17,15 @@ RSpec.describe UserPolicy do
     it { should_not permit(:edit) }
     it { should_not permit(:update) }
   end
+
+  context 'policy scope' do
+    subject { Pundit.policy_scope!(logged_user, User) }
+
+    before do
+      create(:user)
+      create(:user)
+    end
+
+    it { expect(subject.size).to eq(2) }
+  end
 end

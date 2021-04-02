@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     users = policy_scope(User)
-    @users = params[:genre_ids] ? users.joins(:preferences).where(preferences: { genre_id: params[:genre_ids] }) : users
+    @users = params[:genre_ids] ? users.includes(:preferences).where(preferences: { genre_id: params[:genre_ids] }) : users
   end
 
   def show; end

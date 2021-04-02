@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+  before_action :set_user, only: %i[new create]
+  before_action :set_group, only: %i[show edit update destroy]
 
   def index
     groups = policy_scope(Group)
@@ -22,7 +24,48 @@ class GroupsController < ApplicationController
     # end
   end
 
+  def show; end
+
+  def new
+    @group = Group.new
+    authorize @group
+  end
+
+  def create
+    group = Group.new(group_params)
+    group.gm = @user
+    if group.save
+      redirect_to group_path(@group)
+    else
+      render :new
+    end
+  end
+
+  def edit; end
+
+  def update
+    if group.update(group_params)
+      redirect_to group_path(@group)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @group.destroy
+    redirect_to user_path(current_user)
+  end
+
   private
+
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+
+  def set_group
+    @group = Group.find(params[:id])
+    authorize @group
+  end
 
   def group_params
     params.require(:group).permit(:name, :description, :city)

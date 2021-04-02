@@ -50,6 +50,12 @@ RSpec.describe Group, type: :model do
         expect(subject.users).to include(user2)
         expect(subject.users.length).to equal(2)
       end
+
+      it "returns a group's rulebook" do
+        rulebook = create(:rulebook)
+        subject.rulebook = rulebook
+        expect(subject.rulebook).to equal(rulebook)
+      end
     end
   end
 end

@@ -34,6 +34,7 @@ class GroupsController < ApplicationController
   def create
     group = Group.new(group_params)
     group.gm = @user
+    authorize group
     if group.save
       redirect_to group_path(@group)
     else

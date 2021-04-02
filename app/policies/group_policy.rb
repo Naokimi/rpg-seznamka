@@ -4,7 +4,7 @@ class GroupPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user == @record
+    @user == @record.gm
   end
 
   alias update? edit?

@@ -77,13 +77,12 @@ RSpec.describe Rulebook, type: :model do
       expect(subject.genres.size).to eq(2)
     end
 
-    # TODO: uncomment after adding rulebook_id to group
-    # it "returns a rulebook's groups" do
-      # group1 = create(:group, rulebook: rulebook)
-      # group2 = create(:group, rulebook: rulebook)
-      # expect(rulebook.groups).to include(group1)
-      # expect(rulebook.groups).to include(group2)
-      # expect(rulebook.groups.length).to equal(2)
-    # end
+    it "returns a rulebook's groups" do
+      group1 = create(:group, rulebook: subject)
+      group2 = create(:group, name: 'group2', rulebook: subject)
+      expect(subject.groups).to include(group1)
+      expect(subject.groups).to include(group2)
+      expect(subject.groups.length).to equal(2)
+    end
   end
 end

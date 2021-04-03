@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_30_120426) do
+ActiveRecord::Schema.define(version: 2021_04_02_142618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,7 +32,9 @@ ActiveRecord::Schema.define(version: 2021_03_30_120426) do
     t.datetime "updated_at", precision: 6, null: false
     t.float "latitude"
     t.float "longitude"
+    t.bigint "rulebook_id", null: false
     t.index ["gm_id"], name: "index_groups_on_gm_id"
+    t.index ["rulebook_id"], name: "index_groups_on_rulebook_id"
   end
 
   create_table "pairings", force: :cascade do |t|
@@ -87,6 +89,7 @@ ActiveRecord::Schema.define(version: 2021_03_30_120426) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "groups", "rulebooks"
   add_foreign_key "groups", "users", column: "gm_id"
   add_foreign_key "pairings", "genres"
   add_foreign_key "pairings", "rulebooks"

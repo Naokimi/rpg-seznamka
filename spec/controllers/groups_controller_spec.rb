@@ -3,22 +3,32 @@ require 'rails_helper'
 RSpec.describe GroupsController, type: :controller do
   let(:user)   { create(:user) }
   let(:group)  { create(:group, gm: user) }
-  let(:group2) { create(:group, name: 'second group') }
+  let(:group2) { create(:group, name: 'second group', rulebook: create(:rulebook, :with_genre, name: 'second rulebook')) }
 
   before do
     sign_in user
   end
 
   describe '#index' do
-    it 'render an index page' do
-      group
-      group2
-      get :index
-      expect(response).to be_successful
-      expect(controller.instance_variable_get(:@groups).size).to eq(2)
+    context 'unfiltered' do
+      it 'render an index page' do
+        group
+        group2
+        get :index
+        expect(response).to be_successful
+        expect(controller.instance_variable_get(:@groups).size).to eq(2)
+      end
     end
 
-    # TODO: implement test for filtered index
+    context 'filtered' do
+      it 'render an index page' do
+        group
+        group2
+        get :index, params: { genre_ids: group2.rulebook.genres.pluck(:id) }
+        expect(response).to be_successful
+        expect(controller.instance_variable_get(:@groups).size).to eq(1)
+      end
+    end
   end
 
   describe '#new' do
@@ -34,7 +44,7 @@ RSpec.describe GroupsController, type: :controller do
       it 'creates a new group' do
         post :create, params: {
           user_id: user.id,
-          group: { name: 'test group', city: 'home', description: Faker::Lorem.sentence }
+          group: { name: 'test group', city: 'home', description: Faker::Lorem.sentence, rulebook_id: create(:rulebook).id }
         }
         expect(response).to redirect_to(group_path(Group.last))
         expect(Group.first.name).to eq('test group')

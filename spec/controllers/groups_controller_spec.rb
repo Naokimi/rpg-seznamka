@@ -34,7 +34,7 @@ RSpec.describe GroupsController, type: :controller do
       it 'creates a new group' do
         post :create, params: {
           user_id: user.id,
-          group: { name: 'test group', city: 'home', description: Faker::Lorem.sentence }
+          group: { name: 'test group', train_station: 'home', description: Faker::Lorem.sentence }
         }
         expect(response).to redirect_to(group_path(Group.last))
         expect(Group.first.name).to eq('test group')
@@ -43,7 +43,7 @@ RSpec.describe GroupsController, type: :controller do
 
     context 'failure' do
       it 'redirects without creating' do
-        post :create, params: { user_id: user.id, group: { name: nil, city: nil, description: nil } }
+        post :create, params: { user_id: user.id, group: { name: nil, train_station: nil, description: nil } }
         expect(response).to be_successful
         expect(Group.count).to eq(0)
       end
@@ -69,9 +69,9 @@ RSpec.describe GroupsController, type: :controller do
   describe '#update' do
     context 'success' do
       it 'updates the group and redirects' do
-        patch :update, params: { id: group.id, group: { city: 'Test' } }
+        patch :update, params: { id: group.id, group: { train_station: 'Test' } }
         expect(response).to redirect_to(group_path(group))
-        expect(Group.first.city).to eq('Test')
+        expect(Group.first.train_station).to eq('Test')
       end
     end
 

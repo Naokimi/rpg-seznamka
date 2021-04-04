@@ -10,12 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2021_04_02_035233) do
-=======
 ActiveRecord::Schema.define(version: 2021_04_02_142618) do
->>>>>>> 657e9c5c2b6d7b438795bc816db0de849a2d5cd7
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,10 +31,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_142618) do
     t.datetime "updated_at", precision: 6, null: false
     t.float "latitude"
     t.float "longitude"
-<<<<<<< HEAD
-=======
     t.bigint "rulebook_id", null: false
->>>>>>> 657e9c5c2b6d7b438795bc816db0de849a2d5cd7
     t.index ["gm_id"], name: "index_groups_on_gm_id"
     t.index ["rulebook_id"], name: "index_groups_on_rulebook_id"
   end

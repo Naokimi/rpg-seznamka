@@ -4,5 +4,6 @@ FactoryBot.define do
     description { "Join My Group, I have no Friends" }
     train_station { "MyString" }
     gm { association :user }
+    rulebook { association :rulebook }
   end
 end

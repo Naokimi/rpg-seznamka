@@ -3,6 +3,5 @@ FactoryBot.define do
     name { "MyString" }
     description { "MyTextDescription" }
     img_url { "MyImageUrl.jpg"}
-    association :genre
   end
 end

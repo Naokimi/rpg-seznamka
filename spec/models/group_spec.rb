@@ -28,8 +28,8 @@ RSpec.describe Group, type: :model do
       expect(subject).not_to be_valid
     end
 
-    it 'without a city' do
-      subject.city = nil
+    it 'without a train_station' do
+      subject.train_station = nil
       expect(subject).not_to be_valid
     end
 

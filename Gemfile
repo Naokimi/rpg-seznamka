@@ -64,7 +64,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # testing related gems
 gem 'coveralls_reborn', '~> 0.20.0', require: false
 gem 'database_cleaner-active_record'
-gem 'faker'
 
 # views
 gem 'slim-rails'

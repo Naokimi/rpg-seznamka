@@ -1,0 +1,5 @@
+h1 Pages#home
+p Find me in app/views/pages/home.html.erb
+= user_signed_in? ? link_to('find a group', groups_path) : link_to('find a group', new_user_session_path(target: 'group'))
+br
+= user_signed_in? ? link_to('find players', users_path) : link_to('find players', new_user_session_path(target: 'players'))

@@ -44,7 +44,7 @@ RSpec.describe GroupsController, type: :controller do
       it 'creates a new group' do
         post :create, params: {
           user_id: user.id,
-          group: { name: 'test group', city: 'home', description: Faker::Lorem.sentence, rulebook_id: create(:rulebook).id }
+          group: { name: 'test group', train_station: 'home', description: Faker::Lorem.sentence, rulebook_id: create(:rulebook).id }
         }
         expect(response).to redirect_to(group_path(Group.last))
         expect(Group.first.name).to eq('test group')

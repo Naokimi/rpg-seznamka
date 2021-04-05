@@ -4,13 +4,11 @@ class GroupsController < ApplicationController
 
   def index
     groups = policy_scope(Group)
-    # TODO: uncomment and change this line when we have the groups:genres relation in place
-    # @groups = if params[:genre_ids]
-    #  groups.includes(rulebook: :rulebook_genres).where(rulebook_genres: { genre_id: params[:genre_ids] })
-    # else
-    #  groups
-    # end
-    @groups = groups
+    @groups = if params[:genre_ids]
+                groups.includes(rulebook: :pairings).where(pairings: { genre_id: params[:genre_ids] })
+              else
+                groups
+              end
 
     # the `geocoded` scope filters only groups with coordinates (latitude & longitude)
     # TODO talk about updating the groups table with
@@ -69,6 +67,6 @@ class GroupsController < ApplicationController
   end
 
   def group_params
-    params.require(:group).permit(:name, :description, :train_station)
+    params.require(:group).permit(:name, :description, :city, :rulebook_id)
   end
 end

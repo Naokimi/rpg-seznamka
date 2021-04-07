@@ -1,9 +1,8 @@
-require_relative 'data/genres_data.rb'
-require_relative 'data/prefectures_data.rb'
-require_relative 'data/rulebooks_data.rb'
-
-require 'database_cleaner/active_record'
 require 'faker'
+require 'database_cleaner/active_record'
+require_relative 'data/genres_data.rb'
+require_relative 'data/stations_scraper.rb'
+require_relative 'data/rulebooks_data.rb'
 
 puts "Clearing out the battlefield 🌋..."
 DatabaseCleaner.strategy = :truncation
@@ -156,7 +155,7 @@ end
 
 puts "They decided"
 
-puts "Create the Rulebooks..."
+puts "Creating the Rulebooks..."
 
 BOOK_TITLES.each_with_index do |book, index|
   genre = Genre.find_by(name: book[:genre])

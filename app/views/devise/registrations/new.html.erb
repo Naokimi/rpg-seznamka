@@ -9,7 +9,6 @@
                 autofocus: true %>
     <%= f.input :email,
                 required: true,
-                autofocus: true,
                 input_html: { autocomplete: "email" }%>
     <%= f.input :password,
                 required: true,
@@ -18,6 +17,14 @@
     <%= f.input :password_confirmation,
                 required: true,
                 input_html: { autocomplete: "new-password" } %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :city, label: 'Nearest train station' %>
+    <%= simple_fields_for :no_model_fields do |n| %>
+      <%= n.input :genres, collection: @genres, label: 'Favourite RPG genres' %>
+      <% raise %>
+    <% end %>
+    <%=  %>
   </div>
 
   <div class="form-actions">

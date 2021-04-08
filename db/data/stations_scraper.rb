@@ -1,37 +1,62 @@
 require 'Nokogiri'
-require 'open-uri'
-require_relative 'stations_html_file/chiba_stations.html'
-require_relative 'stations_html_file/kanagawa_stations.html'
-require_relative 'stations_html_file/saitama_stations.html'
-require_relative 'stations_html_file/tyo_stations.html'
-require_relative 'stations_html_file/yamanashi_stations.html'
 
-STATIONS = []
+tyo = Rails.root.join('db', 'data', 'stations', 'tyo_stations.html')
+chiba = Rails.root.join('db', 'data', 'stations', 'chiba_stations.html')
+kanagawa = Rails.root.join('db', 'data', 'stations', 'kanagawa_stations.html')
+saitama = Rails.root.join('db', 'data', 'stations', 'saitama_stations.html')
+yamanashi = Rails.root.join('db', 'data', 'stations', 'yamanashi_stations.html')
 
-HTMLS = [
-  ['Tokyo', 'tyo_stations.html'],
-  ['Chiba', 'chiba_stations.html'],
-  ['Kanagawa', 'kanagawa_stations.html'],
-  ['Saitama', 'saitama_stations.html'],
-  ['Yamanashi', 'yamanashi_stations.html']
+ALL_HTML = [
+  ['Tokyo', tyo],
+  ['Chiba', chiba],
+  ['Kanagawa', kanagawa],
+  ['Saitama', saitama],
+  ['Yamanashi', yamanashi]
 ]
 
-def scrape
-  HTMLS.each do |area|
+def scraper
+  stations = []
+  ALL_HTML.each do |area|
     hash = {}
     hash[:prefecture] = area[0]
     hash[:stations] = []
-    html = area[1]
-    html_file = open(html).read
-    html_doc = Nokogiri::HTML(html_file)
 
+    html_file = File.open(area[1]).read
+    html_doc = Nokogiri::HTML(html_file)
     html_doc.search('.mw-category-group').each do |div|
       div.search('li').each do |li|
         hash[:stations].push(li.content)
       end
     end
-    STATIONS.push(hash)
+    stations.push(hash)
   end
+  stations
 end
 
-scrape
+
+
+# def stations_scraper
+#   ALL_HTML.each do |area|
+#     hash = {}
+#     hash[:prefecture] = area[0]
+#     hash[:stations] = []
+
+#     html = area[1]
+#     if html.class == Hash
+#       keys = html.keys
+#       keys.each do |key|
+#         html_file = File.open(html[key]).read
+#         html_doc = Nokogiri::HTML(html_file)
+
+#         html_doc.search('.mw-category-group').each do |div|
+#           div.search('li').each do |li|
+#             hash[:stations].push(li.content)
+#           end
+#         end
+#       end
+#       STATIONS.push(hash)
+#     else
+#       scraper(html)
+#     end
+#   end
+# end

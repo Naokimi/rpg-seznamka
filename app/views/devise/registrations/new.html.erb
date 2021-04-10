@@ -20,11 +20,17 @@
     <%= f.input :first_name %>
     <%= f.input :last_name %>
     <%= f.input :city, label: 'Nearest train station' %>
-    <%= simple_fields_for :no_model_fields do |n| %>
-      <%= n.input :genres, collection: @genres, label: 'Favourite RPG genres' %>
+    <%= simple_fields_for :genre_options do |n| %>
+      <label class="string optional" for="genres">Favourite RPG genres</label>
+      <% @genres.each do |genre| %>
+        <%= n.input genre.id, label: genre.name, as: :boolean %>
+      <% end %>
+    <% end %>
+    <%= simple_fields_for :availability_options do |n| %>
+      <label class="string optional" for="availability">Weekly availability</label>
       <div class="row">
         <div class="col">
-          Hours
+          Hour
         </div>
         <% @availability.keys.each do |key| %>
           <div class="col">

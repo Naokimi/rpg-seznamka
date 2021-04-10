@@ -10,7 +10,7 @@ jobs:
           BUNDLE_JOBS: 3
           BUNDLE_PATH: vendor/bundle
           BUNDLE_RETRY: 3
-          BUNDLER_VERSION: 2.0.1
+          BUNDLER_VERSION: 2.2.15
           RAILS_ENV: test
           DB_HOST: 127.0.0.1
           PG_HOST: 127.0.0.1
@@ -25,7 +25,7 @@ jobs:
       - checkout
       - run:
           name: install new bundler
-          command: gem install bundler:2.1.4
+          command: gem install bundler:2.2.15
       - run:
           name: Which bundler?
           command: bundle -v

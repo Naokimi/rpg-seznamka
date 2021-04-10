@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_02_142618) do
+ActiveRecord::Schema.define(version: 2021_04_08_123637) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "genres", force: :cascade do |t|
@@ -26,7 +27,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_142618) do
     t.string "name"
     t.text "description"
     t.string "train_station"
-    t.jsonb "session_times"
+    t.jsonb "session_times", default: {"friday"=>[], "monday"=>[], "sunday"=>[], "tuesday"=>[], "saturday"=>[], "thursday"=>[], "wednesday"=>[]}
     t.bigint "gm_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -81,7 +82,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_142618) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "nickname"
-    t.jsonb "availability"
+    t.jsonb "availability", default: {"friday"=>[], "monday"=>[], "sunday"=>[], "tuesday"=>[], "saturday"=>[], "thursday"=>[], "wednesday"=>[]}
     t.string "city"
     t.string "first_name"
     t.string "last_name"

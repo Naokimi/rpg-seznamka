@@ -22,7 +22,28 @@
     <%= f.input :city, label: 'Nearest train station' %>
     <%= simple_fields_for :no_model_fields do |n| %>
       <%= n.input :genres, collection: @genres, label: 'Favourite RPG genres' %>
-      <% raise %>
+      <div class="row">
+        <div class="col">
+          Hours
+        </div>
+        <% @availability.keys.each do |key| %>
+          <div class="col">
+            <%= key.capitalize %>
+          </div>
+        <% end %>
+      </div>
+      <% (0..23).to_a.each do |hour| %>
+        <div class="row">
+          <div class="col">
+            <%= hour %>
+          </div>
+          <% 7.times do %>
+            <div class="col">
+              <%= n.input :hour, label: false, as: :boolean %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
     <%=  %>
   </div>

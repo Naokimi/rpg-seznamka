@@ -47,7 +47,7 @@ class RegistrationsController < Devise::RegistrationsController
     @user_availability = { monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: [], sunday: [] }
     params['availability_options'].select { |_k, v| v == '1' }.each_key do |key|
       day, hour = key.split('-')
-      @availability[day.to_sym] << hour.to_i
+      @user_availability[day.to_sym] << hour.to_i
     end
   end
 end

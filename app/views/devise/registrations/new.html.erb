@@ -19,39 +19,16 @@
                 input_html: { autocomplete: "new-password" } %>
     <%= f.input :first_name %>
     <%= f.input :last_name %>
-    <%= f.input :city, label: 'Nearest train station' %>
-    <%= simple_fields_for :genre_options do |n| %>
-      <label class="string optional" for="genres">Favourite RPG genres</label>
-      <% @genres.each do |genre| %>
-        <%= n.input genre.id, label: genre.name, as: :boolean %>
-      <% end %>
-    <% end %>
-    <%= simple_fields_for :availability_options do |n| %>
-      <label class="string optional" for="availability">Weekly availability</label>
-      <div class="row">
-        <div class="col">
-          Hour
-        </div>
-        <% @availability.keys.each do |key| %>
-          <div class="col">
-            <%= key.capitalize %>
-          </div>
+    <% unless params['target'] == 'players' %>
+      <%= f.input :city, required: true, label: 'Nearest train station' %>
+      <%= simple_fields_for :genre_options do |n| %>
+        <label class="string required" for="genres">Favourite RPG genres <abbr title="required">*</abbr></label>
+        <% @genres.each do |genre| %>
+          <%= n.input genre.id, label: genre.name, as: :boolean %>
         <% end %>
-      </div>
-      <% (0..23).to_a.each do |hour| %>
-        <div class="row">
-          <div class="col">
-            <%= hour %>
-          </div>
-          <% @availability.keys.each do |key| %>
-            <div class="col">
-              <%= n.input "#{key}-#{hour}", label: false, as: :boolean %>
-            </div>
-          <% end %>
-        </div>
       <% end %>
+      <%= render 'shared/availability_form' %>
     <% end %>
-    <%=  %>
   </div>
 
   <div class="form-actions">

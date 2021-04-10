@@ -1,0 +1,14 @@
+= simple_fields_for :availability_options do |n|
+  label class="string required" for="availability" Weekly availability <abbr title="required">*</abbr>
+  .row
+    .col Hour
+    - @availability.keys.each do |key|
+      .col
+        = key.capitalize
+  - (0..23).to_a.each do |hour|
+    .row
+      .col
+        = hour
+      - @availability.keys.each do |key|
+        .col
+          = n.input "#{key}-#{hour}", label: false, as: :boolean

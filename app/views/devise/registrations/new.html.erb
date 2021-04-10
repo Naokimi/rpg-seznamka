@@ -37,9 +37,9 @@
           <div class="col">
             <%= hour %>
           </div>
-          <% 7.times do %>
+          <% @availability.keys.each do |key| %>
             <div class="col">
-              <%= n.input :hour, label: false, as: :boolean %>
+              <%= n.input "#{key}-#{hour}", label: false, as: :boolean %>
             </div>
           <% end %>
         </div>

@@ -4,6 +4,7 @@ class HashSerializer
   end
 
   def self.load(hash)
+    hash = JSON.parse(hash) if hash.class == String
     (hash || {}).with_indifferent_access
   end
 end

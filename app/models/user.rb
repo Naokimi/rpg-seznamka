@@ -4,7 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  serialize :availability, HashSerializer
+
   has_many :preferences
+  has_many :genres, through: :preferences
 
   validates :nickname, presence: true, uniqueness: true
 

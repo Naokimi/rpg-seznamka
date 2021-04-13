@@ -4,7 +4,27 @@ require_relative 'data/genres_data.rb'
 require_relative 'data/stations_scraper.rb'
 require_relative 'data/rulebooks_data.rb'
 
+# Scraper can be found in the 'db' folder
 data = scraper
+
+def available_times
+  availability = {sunday: [], monday:[], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: []}
+  days = availability.keys
+  days.each do |day|
+    rand(5..8).times do
+      run = true
+      while run
+        hour = rand(0..23)
+        if !availability[day].include?(hour)
+          availability[day].push(hour)
+          run = false
+        end
+      end
+    end
+    availability[day].sort!
+  end
+  availability
+end
 
 puts "Clearing out the battlefield 🌋..."
 DatabaseCleaner.strategy = :truncation
@@ -13,11 +33,13 @@ puts "Battlefield Cleared ⛰"
 
 user_num = 0
 puts "Summoning Gandalf 🧙🏻‍♂️"
+
 gandalf = User.create!(
   email: 'gandalf@gmail.com',
   nickname: 'GandalfTheWhite',
   password: '123456',
-  train_station: 'Shibuya Station'
+  train_station: 'Shibuya Station',
+  availability: available_times
   )
 puts "#{user_num += 1}. #{gandalf.nickname} Summoned: 'You Shall Not Pass!' 🧖🏼‍♂️"
 
@@ -33,7 +55,8 @@ puts "Generating NPCs..."
         email: Faker::Internet.email,
         nickname: nickname,
         password: '123456',
-        train_station: "#{area[:stations].sample}, #{area[:prefecture]}"
+        train_station: "#{area[:stations].sample}, #{area[:prefecture]}",
+        availability: available_times
         )
       puts "#{user_num += 1}. #{user.nickname} - #{user.train_station} created"
       status = false
@@ -110,7 +133,8 @@ group_num = 0
     description: Faker::Company.bs,
     train_station: "Shibuya Station, Tokyo",
     rulebook: rulebook,
-    gm: gandalf
+    gm: gandalf,
+    session_times: gandalf.availability
     )
   puts "#{group_num += 1}. #{group.name} created"
 end
@@ -127,11 +151,12 @@ end
         name: name,
         description: Faker::Company.bs,
         rulebook: rulebook,
-        train_station: "#{area[:stations].sample}, #{area[:prefecture]}",
-        gm: user
+        train_station: user.train_station,
+        gm: user,
+        session_times: user.availability
         )
       status = false
-      puts "#{group_num += 1}. #{group.name} created"
+      puts "#{group_num += 1}. #{group.name} - #{group.train_station} created"
     end
   end
 end
@@ -149,7 +174,7 @@ end
   while status
     user = User.all.sample
     group = Group.all.sample
-    if group.gm != user && !group.users.include?(user) && group.users.count < 5 && group.train_station == user.train_station
+    if group.gm != user && !group.users.include?(user) && group.users.count < 5
       p_group = PlayerGroup.create!(
       user: user,
       group: group

@@ -45,9 +45,9 @@ RSpec.describe UsersController, type: :controller do
   describe '#update' do
     context 'success' do
       it 'updates the user and redirects' do
-        patch :update, params: { id: user.id, user: { city: 'Test' } }
+        patch :update, params: { id: user.id, user: { train_station: 'Test' } }
         expect(response).to redirect_to(user_path(user))
-        expect(User.first.city).to eq('Test')
+        expect(User.first.train_station).to eq('Test')
       end
     end
 

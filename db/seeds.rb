@@ -168,12 +168,22 @@ groups.each do |group|
   PlayerGroup.create!(user: gandalf, group: group) if group.gm != gandalf
 end
 
+def genre_pref_match?(preferences_array, genres_array)
+  result = false
+  preferences_array.each do |preference|
+    result = true if genres_array.include?(preference)
+  end
+  result
+end
+
 30.times do
   status = true
   while status
     user = User.all.sample
+    preferences = user.preferences.map { |preference| preference.genre.name }
     group = Group.all.sample
-    if group.gm != user && !group.users.include?(user) && group.users.count < 5
+    genres = group.rulebook.genres.map { |genre| genre.name }
+    if group.gm != user && !group.users.include?(user) && group.users.count < 5 && genre_pref_match?(preferences, genres)
       p_group = PlayerGroup.create!(
       user: user,
       group: group

@@ -126,7 +126,6 @@ puts "Generating Groups..."
 group_num = 0
 
 2.times do
-  preference = gandalf.preferences.sample.genre
   rulebook = Rulebook.all.sample
   group = Group.create!(
     name: Faker::App.name,

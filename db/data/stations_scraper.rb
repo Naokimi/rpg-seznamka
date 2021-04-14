@@ -32,31 +32,3 @@ def scraper
   end
   stations
 end
-
-
-
-# def stations_scraper
-#   ALL_HTML.each do |area|
-#     hash = {}
-#     hash[:prefecture] = area[0]
-#     hash[:stations] = []
-
-#     html = area[1]
-#     if html.class == Hash
-#       keys = html.keys
-#       keys.each do |key|
-#         html_file = File.open(html[key]).read
-#         html_doc = Nokogiri::HTML(html_file)
-
-#         html_doc.search('.mw-category-group').each do |div|
-#           div.search('li').each do |li|
-#             hash[:stations].push(li.content)
-#           end
-#         end
-#       end
-#       STATIONS.push(hash)
-#     else
-#       scraper(html)
-#     end
-#   end
-# end

@@ -59,4 +59,11 @@ RSpec.describe UsersController, type: :controller do
       end
     end
   end
+
+  describe '#profile' do
+    it 'renders a profile page' do
+      get :profile
+      expect(response).to be_successful
+    end
+  end
 end

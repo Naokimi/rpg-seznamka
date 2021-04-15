@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def profile
-    # @genres = current_user.genres
+    @genres = current_user.genres
     @attending_games = current_user.player_groups
     @leading_games = current_user.owned_groups
   end

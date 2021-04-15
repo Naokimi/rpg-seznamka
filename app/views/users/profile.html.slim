@@ -10,7 +10,10 @@ h5
 
 h3
   | Your Availability
-    - current_user.availability.each do |k, v|
+    .row
+      .col Hours
+      - current_user.availability.each_keys do |k|
+        .col = k
 # need to think of user availability and grid
 h3
   | Your Teams

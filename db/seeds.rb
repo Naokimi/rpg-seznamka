@@ -9,19 +9,34 @@ data = scraper
 
 def available_times
   availability = {sunday: [], monday:[], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: []}
+  weekday_times = [12..15, 16..19, 20..23]
+  weekend_times = [7..11, 13..16, 17..20, 23..1]
+  non_work_nights = [:friday, :saturday]
   days = availability.keys
   days.each do |day|
-    rand(5..8).times do
-      run = true
-      while run
-        hour = rand(0..23)
-        if !availability[day].include?(hour)
-          availability[day].push(hour)
-          run = false
+    if non_work_nights.include?(day)
+      rand(1..4).times do
+        run = true
+        while run
+          weekend_time_slot = weekend_times.sample
+          if !availability[day].include?(weekend_time_slot)
+            availability[day].push(weekend_time_slot)
+            run = false
+          end
+        end
+      end
+    else
+      rand(1..3).times do
+        run = true
+        while run
+          weekday_time_slot = weekday_times.sample
+          if !availability[day].include?(weekday_time_slot)
+            availability[day].push(weekday_time_slot)
+            run = false
+          end
         end
       end
     end
-    availability[day].sort!
   end
   availability
 end
@@ -45,7 +60,7 @@ puts "#{user_num += 1}. #{gandalf.nickname} Summoned: 'You Shall Not Pass!' 🧖
 
 puts "Generating NPCs..."
 
-40.times do
+10.times do
   status = true
   while status
     nickname = Faker::Internet.username
@@ -125,7 +140,11 @@ puts "All Rulebooks created"
 puts "Generating Groups..."
 group_num = 0
 
+# add a conditional so that user does not have the same times
+session_day = gandalf.availability.keys.shuffle.first(2)
+index = 0
 2.times do
+  session_time = gandalf.availability[session_day[index]].sample
   rulebook = Rulebook.all.sample
   group = Group.create!(
     name: Faker::App.name,
@@ -133,15 +152,18 @@ group_num = 0
     train_station: "Shibuya Station, Tokyo",
     rulebook: rulebook,
     gm: gandalf,
-    session_times: gandalf.availability
+    session_times: {session_day[index] => [session_time]}
     )
   puts "#{group_num += 1}. #{group.name} created"
+  index += 1
 end
 
-20.times do
+30.times do
   area = data.sample
   rulebook = Rulebook.all.sample
   user = User.all.sample
+  available_day = user.availability.keys.sample
+  session_time = user.availability[available_day]
   status = true
   while status
     name = Faker::App.name
@@ -152,7 +174,7 @@ end
         rulebook: rulebook,
         train_station: user.train_station,
         gm: user,
-        session_times: user.availability
+        session_times: {available_day => session_time}
         )
       status = false
       puts "#{group_num += 1}. #{group.name} - #{group.train_station} created"
@@ -176,7 +198,7 @@ def genre_pref_match?(preferences_array, genres_array)
   result
 end
 
-30.times do
+40.times do
   status = true
   while status
     user = User.all.sample

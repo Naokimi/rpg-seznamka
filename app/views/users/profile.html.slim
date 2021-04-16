@@ -2,29 +2,19 @@ h3 = current_user.nickname
 p = current_user.full_name
 p = current_user.city
 
-h5
-  | Preferred Genres
-  ul
-    - @genres&.each do |genre|
-      li = genre.name
+h5 Preferred Genres
+ul
+  - @genres&.each do |genre|
+    li = genre.name
 
-h3
-  | Your Availability
-  .row
-    .col Hours
-    - current_user.availability.each_key do |k|
-      .col = k
-  - @availability.each do |array|
-    .row
-      - array.each do |slot|
-        .col style="background-color: #{slot.zero? ? 'white' : 'green'};"
-          | 0
-h3
-  | Your Teams
-  ul
-    - @leading_games.each do |game|
-      li
-        = game
-    - @attending_games.each do |game|
-      li
-        = game
+h3 Your Availability
+= render 'shared/availability'
+
+h3 Your Teams
+ul
+  - @leading_games.each do |game|
+    li
+      = game
+  - @attending_games.each do |game|
+    li
+      = game

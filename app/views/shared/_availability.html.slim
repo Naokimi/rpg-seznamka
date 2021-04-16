@@ -1,0 +1,9 @@
+.row
+  .col Hours
+  - %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday].each do |k|
+    .col = k
+- @availability.each do |array|
+  .row
+    - array.each do |slot|
+      .col style="background-color: #{slot.zero? ? 'white' : 'green'};"
+        = slot.zero? ? 'O' : 'X'

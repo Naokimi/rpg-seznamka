@@ -22,7 +22,9 @@ class GroupsController < ApplicationController
     # end
   end
 
-  def show; end
+  def show
+    @availability = helpers.availability_to_rows(@group.session_times)
+  end
 
   def new
     @group = Group.new

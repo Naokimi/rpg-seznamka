@@ -10,11 +10,15 @@ h5
 
 h3
   | Your Availability
+  .row
+    .col Hours
+    - current_user.availability.each_key do |k|
+      .col = k
+  - @availability.each do |array|
     .row
-      .col Hours
-      - current_user.availability.each_keys do |k|
-        .col = k
-# need to think of user availability and grid
+      - array.each do |slot|
+        .col style="background-color: #{slot.zero? ? 'white' : 'green'};"
+          | 0
 h3
   | Your Teams
   ul

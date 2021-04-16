@@ -22,6 +22,7 @@ class UsersController < ApplicationController
     @genres = current_user.genres
     @attending_games = current_user.player_groups
     @leading_games = current_user.owned_groups
+    @availability = current_user.availability_to_rows
   end
 
   private

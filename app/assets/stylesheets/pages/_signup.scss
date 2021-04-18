@@ -1,0 +1,21 @@
+.signup-body {
+  background: linear-gradient(333deg, rgba(102,126,234,1) 0%, rgba(118,75,162,1) 100%);
+  padding: 10%;
+}
+
+.form-box {
+  background: #FAFAFA;
+  border-radius: 110px;
+  padding: 8%;
+}
+
+.signup-title {
+  text-align: center;
+  color: $main-purple;
+  border-bottom: 1px solid $main-purple;
+  padding-bottom: 5%;
+  margin-bottom: 5%;
+  h2 {
+    font-size: 4rem;
+  }
+}

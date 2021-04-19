@@ -23,4 +23,8 @@ RSpec.describe User, type: :model do
       expect(subject).not_to be_valid
     end
   end
+
+  context 'instance methods' do
+    it { expect(subject.full_name).to eq(' ') }
+  end
 end

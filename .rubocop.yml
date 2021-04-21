@@ -10,6 +10,10 @@ AllCops:
     - 'tmp/**/*'
     - 'test/**/*'
     - 'Dangerfile'
+    - '.circleci/**/*'
+    - '.rubocop.yml'
+    - 'Gemfile'
+    - 'Gemfile.lock'
 Style/Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:

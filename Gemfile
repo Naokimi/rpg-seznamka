@@ -63,6 +63,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # testing related gems
 gem 'coveralls_reborn', '~> 0.20.0', require: false
+gem 'danger-rubocop'
 gem 'database_cleaner-active_record'
 
 # views

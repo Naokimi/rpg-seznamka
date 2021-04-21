@@ -9,6 +9,7 @@ AllCops:
     - 'support/**/*'
     - 'tmp/**/*'
     - 'test/**/*'
+    - 'Dangerfile'
 Style/Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:

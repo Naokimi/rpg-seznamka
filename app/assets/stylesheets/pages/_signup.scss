@@ -29,3 +29,38 @@
   margin: 5% 0;
   color: #764BA2;
 }
+
+.availabilityRow {
+  display: flex;
+  .box {
+    width: 50px;
+    text-align: center;
+  }
+}
+
+#row-1 {
+  border-bottom: 1px solid #764BA2;
+}
+
+.columnHeader {
+  font-size: 1.5rem;
+}
+
+.rowHeader {
+  font-size: 1.5rem;
+}
+
+.availabilityBox {
+  text-align: center;
+}
+
+.square {
+  height: 50px;
+  width: 50px;
+  border: 1px solid #ACB0B2;
+  border-radius: 10px;
+}
+
+.available {
+  background-color: #764BA2;
+}

@@ -24,6 +24,7 @@ function generateColumnHeaders(row) {
 generateColumnHeaders(rowHeader);
 
 // generating availability grid
+const paramsArray = ['', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 let rowIndex = 0;
 function generateAvailability(row) {
   for (let i=0; i<=7; i++) {
@@ -33,12 +34,13 @@ function generateAvailability(row) {
     if (i === 0) {
       availabilityBox.innerHTML = rowIndex;
       availabilityBox.className = 'rowHeader box';
-      //availabilityBox.id = params-attributes
       rowIndex += 1;
     } else {
       availabilityBox.className = 'availabilityBox box';
       availabilityBox.appendChild(innerSquare);
       innerSquare.className = 'square';
+      // setting availability box data-params attribute = to registrations controller params
+      innerSquare.setAttribute('data-params', `availability_options_${paramsArray[i]}-${(rowIndex - 1)}`);
     }
   }
 };
@@ -48,9 +50,19 @@ const rowsArray = [...rows];
 rowsArray.shift();
 rowsArray.forEach(row => generateAvailability(row));
 
-const box = document.getElementsByClassName('availabilityBox');
+// adding event listener to toggle availability boxes status and connecting them to original params checkboxes
+const box = document.getElementsByClassName('square');
 [...box].forEach(box => {
   box.addEventListener('mousedown', e => {
     e.target.classList.toggle('available');
+    const datasetParams = e.target.dataset.params;
+    const paramsCheckbox = document.getElementById(datasetParams);
+    if (e.target.classList.contains('available')) {
+      paramsCheckbox.previousSibling.value = 1;
+    } else {
+      paramsCheckbox.previousSibling.value = 0;
+    }
   } )
 });
+
+

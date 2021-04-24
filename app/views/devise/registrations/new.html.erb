@@ -34,19 +34,18 @@
           <div class="availability">
             <%= render 'shared/availability_form' %>
           </div>
-
-          <h2 id="availability-subtitle">Your Availability</h2>
-          <div id="js-grid">
-            <%= javascript_pack_tag 'availability-grid' %>
-          <div>
+          <div class="your-availability">
+            <h2 id="availability-subtitle">Your Availability</h2>
+            <div id="js-grid">
+              <%= javascript_pack_tag 'availability-grid' %>
+            <div>
+          </div>
         <% end %>
       </div>
 
-      <div class="form-actions">
+      <div id="signup" class="form-actions">
         <%= f.button :submit, "Sign up" %>
       </div>
     <% end %>
-
-    <%= render "devise/shared/links" %>
   </div>
 </div>

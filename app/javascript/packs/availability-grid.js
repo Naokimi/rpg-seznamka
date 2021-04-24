@@ -50,7 +50,7 @@ const rowsArray = [...rows];
 rowsArray.shift();
 rowsArray.forEach(row => generateAvailability(row));
 
-// adding event listener to toggle availability boxes status and connecting them to original params checkboxes
+// adding event listeners to toggle availability boxes status and connecting them to original params checkboxes
 const box = document.getElementsByClassName('square');
 let isMouseDown = false;
 [...box].forEach(box => {

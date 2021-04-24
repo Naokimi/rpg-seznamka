@@ -52,8 +52,25 @@ rowsArray.forEach(row => generateAvailability(row));
 
 // adding event listener to toggle availability boxes status and connecting them to original params checkboxes
 const box = document.getElementsByClassName('square');
+let isMouseDown = false;
 [...box].forEach(box => {
-  box.addEventListener('mousedown', e => {
+  box.addEventListener('mouseover', e => {
+    if (isMouseDown) {
+      e.target.classList.toggle('available');
+      const datasetParams = e.target.dataset.params;
+      const paramsCheckbox = document.getElementById(datasetParams);
+      if (e.target.classList.contains('available')) {
+        paramsCheckbox.previousSibling.value = 1;
+      } else {
+        paramsCheckbox.previousSibling.value = 0;
+      }
+    }
+    box.addEventListener('mousedown', e => {
+      isMouseDown = true;
+    })
+  });
+
+  box.addEventListener('click', e => {
     e.target.classList.toggle('available');
     const datasetParams = e.target.dataset.params;
     const paramsCheckbox = document.getElementById(datasetParams);
@@ -62,7 +79,11 @@ const box = document.getElementsByClassName('square');
     } else {
       paramsCheckbox.previousSibling.value = 0;
     }
-  } )
+  })
+});
+
+window.addEventListener('mouseup', e => {
+  isMouseDown = false;
 });
 
 

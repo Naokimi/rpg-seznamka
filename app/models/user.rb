@@ -14,4 +14,8 @@ class User < ApplicationRecord
   has_many :player_groups
   has_many :groups, through: :player_groups
   has_many :owned_groups, class_name: 'Group', foreign_key: :gm_id, dependent: :destroy
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

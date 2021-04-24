@@ -1,1 +1,20 @@
-= current_user.nickname
+h3 = current_user.nickname
+p = current_user.full_name
+p = current_user.city
+
+h5 Preferred Genres
+ul
+  - @genres&.each do |genre|
+    li = genre.name
+
+h3 Your Availability
+= render 'shared/availability'
+
+h3 Your Teams
+ul
+  - @leading_games.each do |game|
+    li
+      = game
+  - @attending_games.each do |game|
+    li
+      = game

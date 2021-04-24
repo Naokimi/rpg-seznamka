@@ -6,7 +6,9 @@ class UsersController < ApplicationController
     @users = params[:genre_ids] ? users.includes(:preferences).where(preferences: { genre_id: params[:genre_ids] }) : users
   end
 
-  def show; end
+  def show
+    @availability = helpers.availability_to_rows(@user.availability)
+  end
 
   def edit; end
 
@@ -18,7 +20,12 @@ class UsersController < ApplicationController
     end
   end
 
-  def profile; end
+  def profile
+    @genres = current_user.genres
+    @attending_games = current_user.player_groups
+    @leading_games = current_user.owned_groups
+    @availability = helpers.availability_to_rows(current_user.availability)
+  end
 
   private
 

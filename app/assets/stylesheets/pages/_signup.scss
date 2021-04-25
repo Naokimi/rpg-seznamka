@@ -21,13 +21,12 @@
 }
 
 .availability {
-  // visibility: hidden;
   display: none;
 }
 
 #availability-subtitle {
   margin: 5% 0;
-  color: #764BA2;
+  color: $main-purple;
 }
 
 .availabilityRow {
@@ -39,7 +38,7 @@
 }
 
 #row-1 {
-  border-bottom: 1px solid #764BA2;
+  border-bottom: 1px solid $main-purple;
 }
 
 .columnHeader {
@@ -63,7 +62,7 @@
 }
 
 .available {
-  background-color: #764BA2;
+  background-color: $main-purple;
 }
 
 .your-availability {
@@ -81,7 +80,7 @@
   color: white;
   font-size: 1.5rem;
   padding: 8px 16px;
-  background-color: #764BA2;
+  background-color: $main-purple;
   border-radius: 30px;
   margin: 5% 0;
 }

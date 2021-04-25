@@ -1,0 +1,86 @@
+.signup-body {
+  background: linear-gradient(333deg, rgba(102,126,234,1) 0%, rgba(118,75,162,1) 100%);
+  padding: 10%;
+}
+
+.form-box {
+  background: #FAFAFA;
+  border-radius: 110px;
+  padding: 8%;
+}
+
+.signup-title {
+  text-align: center;
+  color: $main-purple;
+  border-bottom: 1px solid $main-purple;
+  padding-bottom: 5%;
+  margin-bottom: 5%;
+  h2 {
+    font-size: 4rem;
+  }
+}
+
+.availability {
+  display: none;
+}
+
+#availability-subtitle {
+  margin: 5% 0;
+  color: $main-purple;
+}
+
+.availabilityRow {
+  display: flex;
+  .box {
+    width: 50px;
+    text-align: center;
+  }
+}
+
+#row-1 {
+  border-bottom: 1px solid $main-purple;
+}
+
+.columnHeader {
+  font-size: 1.5rem;
+}
+
+.rowHeader {
+  font-size: 1.5rem;
+  padding: 5px;
+}
+
+.availabilityBox {
+  text-align: center;
+}
+
+.square {
+  height: 50px;
+  width: 50px;
+  border: 1px solid #ACB0B2;
+  border-radius: 10px;
+}
+
+.available {
+  background-color: $main-purple;
+}
+
+.your-availability {
+  text-align: center;
+}
+
+#js-grid {
+  height: 350px;
+  overflow: scroll;
+  width: 50%;
+  margin: 0 auto;
+}
+
+#signup input {
+  color: white;
+  font-size: 1.5rem;
+  padding: 8px 16px;
+  background-color: $main-purple;
+  border-radius: 30px;
+  margin: 5% 0;
+}

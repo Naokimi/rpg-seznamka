@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2021_04_08_123637) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "nickname"
     t.jsonb "availability", default: {"friday"=>[], "monday"=>[], "sunday"=>[], "tuesday"=>[], "saturday"=>[], "thursday"=>[], "wednesday"=>[]}
-    t.string "city"
+    t.string "train_station"
     t.string "first_name"
     t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true

@@ -35,6 +35,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:availability, :city)
+    params.require(:user).permit(:availability, :train_station)
   end
 end

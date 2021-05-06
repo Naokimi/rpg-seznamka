@@ -20,7 +20,7 @@
     <%= f.input :first_name %>
     <%= f.input :last_name %>
     <% unless params['target'] == 'players' %>
-      <%= f.input :city, required: true, label: 'Nearest train station' %>
+      <%= f.input :train_station, required: true, label: 'Nearest train station' %>
       <%= simple_fields_for :genre_options do |n| %>
         <label class="string required" for="genres">Favourite RPG genres <abbr title="required">*</abbr></label>
         <% @genres.each do |genre| %>

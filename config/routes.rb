@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   end
   resources :groups, only: %i[index show edit update destroy]
 
+  post '/api/repo_update', to: '/api/repo_updates#create'
 end
